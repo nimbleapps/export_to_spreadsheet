@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN" "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+<rss version="0.91"><channel><title>POI Changes</title><link>http://poi.apache.org//changes.html</link><description>POI Changes</description><language>en-us</language><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              50075 - avoid NPE in ListLevel.getNumberText() when numberText is null </description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              50067 - marked commons-logging and log4j as optional dependencies in POI poms</description></item><item><title> add</title><link>http://poi.apache.org//changes.html</link><description> add
+              by 
+              poi-developers
+              :
+              49928 - allow overridden built-in formats in XSSFCellStyle</description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              49919 - support for BorderCode in HWPF</description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              49908 - support for processing of symbols in HWPF</description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              50022 - support for retrieving pictures from HSSF workbooks</description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              50020 - Avoid IllegalStateException when creating Data validation in sheet with macro</description></item><item><title> fix</title><link>http://poi.apache.org//changes.html</link><description> fix
+              by 
+              poi-developers
+              :
+              50033 - Improved rounding in MOD</description></item><item><title> add</title><link>http://poi.apache.org//changes.html</link><description> add
+              by 
+              poi-developers
+              :
+              Generate SHA1 hashes of distribution files, alongside existing MD5 ones</description></item></channel></rss>

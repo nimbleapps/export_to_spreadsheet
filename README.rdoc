@@ -1,0 +1,263 @@
+= ExportToSpreadsheet
+
+This plugin allows to add some export functionalities to a Rails Application. The supported output formats are Microsoft Excel and Google Spreadsheets.
+
+== Dependencies
+
+It requires both JAVA (JDK and JRE) and the following gems :
+- portablecontacts
+- google-spreadsheet-ruby
+- RJB
+- oauth
+- oauth-plugin
+- restful-authentication
+- highline
+
+Apache POI is also necessary but provided with this plugin.
+
+Depending on the target plateform (Linux, Mac or Windows), RJB could require some path configuration, see http://rjb.rubyforge.org/
+
+For the documentation generation the yard gem is required : https://github.com/lsegal/yard
+
+An optionnal rake task to clean the generated files was created : rake cron:tidy_exported_tmp_files
+
+== General installation remark
+
+You need to set the JAVA_HOME environment variable either directly in your system or in a ruby file contained in config/initializers/ where you would write for example :
+
+  ENV['JAVA_HOME'] = "/opt/SDK/jdk"
+
+In some OS (seen in Windows), you might also have to set the CLASS_PATH adding the POI jar files :
+
+  ENV['CLASS_PATH'] = .;D:\PATH_TO_APACHE_POI\lib\apache-poi-3.7\poi-3.7-beta2-20100630.jar;D:\PATH_TO_APACHE_POI\lib\apache-poi-3.7\poi-contrib-3.7-beta2-20100630.jar;D:\PATH_TO_APACHE_POI\lib\apache-poi-3.7\poi-ooxml-3.7-beta2-20100630.jar;D:\PATH_TO_APACHE_POI\lib\apache-poi-3.7\poi-ooxml-schemas-3.7-beta2-20100630.jar;D:\PATH_TO_APACHE_POI\lib\apache-poi-3.7\poi-scratchpad-3.7-beta2-20100630.jar;C:\Program Files (x86)\Java\jre6\lib\ext\QTJava.zip
+
+After installing the oauth-plugin (for Google Spreadsheet support), you need to generate a consumer : (check oauth -plugin documentation for full details)
+
+  RAILS_ROOT/script/generate oauth_consumer
+  rake db:migrate
+
+== Installation on a production server with Apache and Passenger
+
+Passenger has to be launched with the same user as the application files' owner to be able to write files into RAILS_ROOT/tmp
+
+To customize this, add the following line in /etc/apache2/mods-enabled/passenger.conf :
+
+  PassengerDefaultUser app_user
+
+== Tests
+
+The tests of this plugin requires a Google account.
+
+= Getting started
+
+A full sample that uses the plugin is available here : https://github.com/nimbleapps/export_to_spreadsheet_sample_app/
+
+== Simple Excel export
+
+Once the plugin is installed (see Installation section for that), you can do the following to get a valid Excel export in 10 steps :
+
+1/ Create your Rails app :
+
+rails my_application
+
+2/ Add the reference to the gem in your config/environment.rb :
+
+config.gem "export_to_spreadsheet"
+
+3/ Generate a scaffold (for instance a User one) :
+
+ruby script/generate scaffold User first_name:string last_name:string
+
+4/ Perform the migration to create the SQL table :
+
+rake db:migrate
+
+5/ Launch your server, go to your app URL (http://localhost:3000/users)
+
+6/ Use the interface to add some users.
+
+7/ Add a class in your models to perform the export, this class has to include the plugin :
+
+  class UserExporter
+    include ExportToSpreadsheet
+
+    # Actually building the output file whatever the format
+    def compose_export
+      @doc.write do |d|
+        d.title_1("Sample Title User Export").title_2("We are going to export the users")
+        d.title_3("Date : " + Date.today.to_s)
+        d.newline.newline.freezepane
+        keys_array =  ["First Name", "Last Name"]
+        values     =  []
+        User.all.each_with_index do |user,i|
+          values     <<  [user.first_name, user.last_name]
+        end
+        d.h_table(values, keys_array, {:border_bottom => true})
+        d.newline.newline
+      end
+      @doc.save
+    end
+  end
+
+8/ In the User controller, add a method for the export and the download of the document :
+
+  def export
+    # Option which is handled by default by the plugin
+    options = {:filename => "Users Export Example"}
+    u_e    = UserExporter.new
+    export = u_e.to_excel(options)
+    download export.path
+  end
+
+  private
+  def download(server_file_path)
+    send_file server_file_path
+    rescue => e
+      raise Exception, "File not found. Please ensure that your file was saved. Error was: #{e}"
+  end
+
+9/ Modify the routes.rb file to map this new action :
+
+map.resources :users, :collection => { :export => :get }
+
+10/ Congratulations ! You can now export all the users in an Excel Spreadsheet using the link : http://localhost:3000/users/export
+
+== Advanced Spreadsheet export capabilities
+
+Your first export worked. Now, what if you want to add a parameter to your export such as the number of users to export.
+
+Let's do this :
+
+1/ Modify your export export action in the users controller :
+
+  def export
+    export_format         = params[:export_format]
+    records_nb_to_export  = params[:records_nb_to_export]
+
+    # first option which is handled by default by the plugin
+    options = {:filename => "Users Export Example"}
+    # adding an option which is personalized in lib/personalized_export_properties
+    options.merge!({:records_nb_to_export => records_nb_to_export})
+    u_e    = UserExporter.new
+    if export_format == "excel"
+      export = u_e.to_excel(options)
+      download export.path
+    end
+
+  end
+
+2/ Modify the routes to handle these new parameters
+
+  map.resources :users
+  map.connect 'users/export/:export_format/:records_nb_to_export', :controller => 'users', :action => 'export'
+
+3/ Add a plugin customization to handle this records_nb_to_export parameter. To do so, add a file before_prepare_export.rb in your lib folder and add the following code :
+
+  module ExportToSpreadsheet
+
+    # Configures export before generating a document
+    def before_prepare_export_first(target, options = {})
+      @records_nb_to_export   = (options && ! options.empty?) ? options.delete(:records_nb_to_export)   : nil
+      return options
+    end
+
+  end
+
+
+4/ Change the ExportUser class where the variable @records_nb_to_export is now available :
+
+  class UserExporter
+    include ExportToSpreadsheet
+
+    # Actually building the output file whatever the format
+    def compose_export
+      @doc.write do |d|
+        d.title_1("Sample Title User Export").title_2("We are going to export the first #{@records_nb_to_export} users")
+        d.title_3("Date : " + Date.today.to_s)
+        d.newline.newline.freezepane
+        keys_array =  ["First Name", "Last Name"]
+        values     =  []
+        User.all.each_with_index do |user,i|
+          if i < @records_nb_to_export.to_i
+            values     <<  [user.first_name, user.last_name]
+          else
+            break
+          end
+        end
+        d.h_table(values, keys_array, {:border_bottom => true})
+        d.newline.newline
+      end
+      @doc.save
+    end
+  end
+
+5/ Congratulations ! You can now export some data based on any users input parameter following this example. To check the example, visit http://localhost:3000/users/export/excel/3 which will export the three first users.
+
+
+== Google Spreadsheet export
+
+To perform the Google Spreadsheet export, you need to follow the bellow :
+
+1/ Ensure the oauth_consumer script run properly. (See General installation remark)
+
+2/ Follow the documentation of oauth and oauth-plugin gems to manage the oauth permission process.
+Among the required steps, don't forget to add your application credentials (the credentials it uses to connect to Google Apps) in the file config/initializers/oauth_consumers.rb :
+
+  OAUTH_CREDENTIALS = {
+    :google => {
+      :key     => 'your_key',
+      :secret  => 'your_secret',
+      :scope   => 'https://docs.google.com/feeds/ https://spreadsheets.google.com/feeds/ https://www.google.com/m8/feeds/ https://www.google.com/calendar/feeds/',
+      :options => {
+        :site               => 'https://www.google.com',
+        :request_token_path => '/accounts/OAuthGetRequestToken',
+        :access_token_path  => '/accounts/OAuthGetAccessToken',
+        :authorize_path     => '/accounts/OAuthAuthorizeToken',
+        :signature_method   => 'HMAC-SHA1'
+      }
+    }
+  }
+
+3/ Modify the export action of the user controller :
+
+  def export
+    export_format         = params[:export_format]
+    records_nb_to_export  = params[:records_nb_to_export]
+
+    # first option which is handled by default by the plugin
+    options = {:filename => "Users Export Example"}
+    # adding an option which is personalized in lib/personalized_export_properties
+    options.merge!({:records_nb_to_export => records_nb_to_export})
+    u_e    = UserExporter.new
+    if export_format == "google"
+      # assuming the user's token is the first one in the table
+      google_token_client = GoogleToken.first.client
+      export              = u_e.to_google_spreadsheets({:access_token => google_token_client}.merge options)
+      render :text => "Generation Complete. Check your Google Apps account."
+    elsif export_format == "excel"
+      export = u_e.to_excel(options)
+      download export.path
+    end
+
+  end
+
+4/ Congratulations ! You can now export also spreadsheet in a Google account. To check the example, visit http://localhost:3000/users/export/google/3 which will export the three first users in a Google Spreadsheet.
+
+
+= Environments
+
+Tested on Rails 2.3.8 and Ruby 1.8.7.
+
+= Version
+
+0.1.0 (2011)
+
+= Auteur
+
+Nimble Apps Limited (developed by Michel Pigassou)
+
+http://www.salesclic.com
+
+= Licence
+
+MIT license
