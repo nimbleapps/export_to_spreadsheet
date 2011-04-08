@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: SalesClicExporter::Document</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (D)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../SalesClicExporter.html" title="SalesClicExporter (module)">SalesClicExporter</a></span></span>
+     &raquo; 
+    <span class="title">Document</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: SalesClicExporter::Document
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/sales_clic_exporter/base.rb<span class="defines">,<br />
+  lib/sales_clic_exporter/excel.rb,<br /> lib/sales_clic_exporter/google_spreadsheets.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Document describes a format to which data can be exported. A document can
+contain titles, lines or arrays.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Document/Base.html" title="SalesClicExporter::Document::Base (class)">Base</a></span>, <span class='object_link'><a href="Document/Excel.html" title="SalesClicExporter::Document::Excel (class)">Excel</a></span>, <span class='object_link'><a href="Document/GoogleSpreadsheets.html" title="SalesClicExporter::Document::GoogleSpreadsheets (class)">GoogleSpreadsheets</a></span>
+    
+  
+</p>
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_extensions-class_method" title="allowed_extensions (class method)">+ (Object) <strong>allowed_extensions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Gives the format that are supported by this plug-in.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="allowed_extensions-class_method">
+  
+    + (<tt>Object</tt>) <strong>allowed_extensions</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Gives the format that are supported by this plug-in. It can be used in
+routes to check if the requested format can be generated.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code"><span class='SalesClicExporter constant id'>SalesClicExporter</span><span class='colon2 op'>::</span><span class='Document constant id'>Document</span><span class='dot token'>.</span><span class='allowed_extensions identifier id'>allowed_extensions</span> <span class='comment val'>#=&gt; ['xls', 'google_spreadsheet']</span>
+</pre>
+    
+  </div>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sales_clic_exporter/base.rb', line 9</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='allowed_extensions identifier id'>allowed_extensions</span>
+  <span class='subclasses identifier id'>subclasses</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='subclasses identifier id'>subclasses</span>
+  <span class='subclasses identifier id'>subclasses</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='str_klass identifier id'>str_klass</span><span class='bitor op'>|</span>
+    <span class='klass identifier id'>klass</span> <span class='assign token'>=</span> <span class='str_klass identifier id'>str_klass</span><span class='dot token'>.</span><span class='constantize identifier id'>constantize</span>
+    <span class='klass identifier id'>klass</span><span class='dot token'>.</span><span class='const_defined? fid id'>const_defined?</span><span class='lparen token'>(</span><span class='symbol val'>:Extension</span><span class='rparen token'>)</span>   <span class='question op'>?</span>   <span class='klass identifier id'>klass</span><span class='colon2 op'>::</span><span class='Extension constant id'>Extension</span>   <span class='colon op'>:</span>   <span class='nil nil kw'>nil</span>
+  <span class='end end kw'>end</span><span class='dot token'>.</span><span class='compact identifier id'>compact</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on 04/08/11 11:15:44 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.7 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: SpreadsheetToArray::FromExcel</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (F)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../SpreadsheetToArray.html" title="SpreadsheetToArray (module)">SpreadsheetToArray</a></span></span>
+     &raquo; 
+    <span class="title">FromExcel</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: SpreadsheetToArray::FromExcel
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">SpreadsheetToArray::FromExcel</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/spreadsheet_to_array.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#values-instance_method" title="#values (instance method)">- (Object) <strong>values</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute values.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (FromExcel) <strong>initialize</strong>(byte_array) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of FromExcel.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="SpreadsheetToArray::FromExcel (class)">FromExcel</a></span></tt>) <strong>initialize</strong>(byte_array) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of FromExcel
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spreadsheet_to_array.rb', line 16</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='byte_array identifier id'>byte_array</span><span class='rparen token'>)</span>
+
+  <span class='require identifier id'>require</span> <span class='string val'>'rjb'</span>
+  
+  <span class='comment val'># JVM loading</span>
+  <span class='filedir identifier id'>filedir</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>'/.'</span>
+  <span class='comment val'># Memory settings</span>
+  <span class='memory identifier id'>memory</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'-Xms256M'</span><span class='comma token'>,</span> <span class='string val'>'-Xmx512M'</span><span class='rbrack token'>]</span>
+  <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{filedir}/apache-poi/poi-3.7-20101029.jar&quot;</span><span class='comma token'>,</span> <span class='memory identifier id'>memory</span><span class='rparen token'>)</span>
+  
+  <span class='comment val'># Import des packages Java</span>
+  <span class='begin begin kw'>begin</span>
+    <span class='@file_class ivar id'>@file_class</span>               <span class='assign token'>=</span> <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='string val'>'java.io.FileInputStream'</span><span class='rparen token'>)</span>
+    <span class='@workbook_class ivar id'>@workbook_class</span>           <span class='assign token'>=</span> <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='string val'>'org.apache.poi.hssf.usermodel.HSSFWorkbook'</span><span class='rparen token'>)</span>
+    <span class='@cell_class ivar id'>@cell_class</span>               <span class='assign token'>=</span> <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='string val'>'org.apache.poi.hssf.usermodel.HSSFCell'</span><span class='rparen token'>)</span>
+    <span class='@date_util_class ivar id'>@date_util_class</span>          <span class='assign token'>=</span> <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='string val'>'org.apache.poi.ss.usermodel.DateUtil'</span><span class='rparen token'>)</span>
+    <span class='@byte_array_input_stream ivar id'>@byte_array_input_stream</span>  <span class='assign token'>=</span> <span class='Rjb constant id'>Rjb</span><span class='colon2 op'>::</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='string val'>'java.io.ByteArrayInputStream'</span><span class='rparen token'>)</span>
+  <span class='rescue rescue kw'>rescue</span>
+    <span class='raise identifier id'>raise</span> <span class='string val'>&quot;Impossible to load Java packages. Maybe the path of Apache POI is not correct.&quot;</span>
+  <span class='end end kw'>end</span>      
+  
+  <span class='begin begin kw'>begin</span>
+    <span class='java_byte_array identifier id'>java_byte_array</span>         <span class='assign token'>=</span> <span class='@byte_array_input_stream ivar id'>@byte_array_input_stream</span><span class='dot token'>.</span><span class='new_with_sig identifier id'>new_with_sig</span><span class='lparen token'>(</span><span class='string val'>'[B'</span><span class='comma token'>,</span> <span class='byte_array identifier id'>byte_array</span><span class='rparen token'>)</span>
+    <span class='@book ivar id'>@book</span>                   <span class='assign token'>=</span> <span class='@workbook_class ivar id'>@workbook_class</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='java_byte_array identifier id'>java_byte_array</span><span class='rparen token'>)</span>
+  <span class='rescue rescue kw'>rescue</span> <span class='Exception constant id'>Exception</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='e identifier id'>e</span>
+    <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;The document is not a valid Excel file: #{e}&quot;</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='comment val'># Reglage du nom de la première feuille</span>
+  <span class='@sheet ivar id'>@sheet</span>                    <span class='assign token'>=</span> <span class='@book ivar id'>@book</span><span class='dot token'>.</span><span class='getSheetAt identifier id'>getSheetAt</span><span class='lparen token'>(</span><span class='integer val'>0</span><span class='rparen token'>)</span>
+  
+  <span class='comment val'># Valeurs récupérées depuis le tableur</span>
+  <span class='@values ivar id'>@values</span>                   <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='parse_sheet identifier id'>parse_sheet</span>    
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="values-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="values-instance_method">
+  
+    - (<tt>Object</tt>) <strong>values</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute values
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spreadsheet_to_array.rb', line 14</span>
+
+<span class='def def kw'>def</span> <span class='values identifier id'>values</span>
+  <span class='@values ivar id'>@values</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+</div>
+    
+    <div id="footer">
+  Generated on 04/08/11 11:15:45 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.7 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
