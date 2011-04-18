@@ -7,9 +7,9 @@ require 'echoe'
 Echoe.new('export_to_spreadsheet') do |p|  
   # The version can be specified as a 2nd argument after the name, or completly left (in this case
   # the last version in the CHANGELOG file will be used)
-  p.version         =  '0.1.0'
+  p.version         =  '0.1.1'
   p.description     = "Export model data to Google Spreadsheets or Excel through Apache POI"  
-  p.url             = "http://github.com/nimbleapps/Export-to-spreadsheet"  
+  p.url             = "http://github.com/nimbleapps/export-to-spreadsheet"  
   p.author          = "Nimble Apps"  
   p.email           = "dev@nimble-apps.com"  
   p.ignore_pattern  = ["tmp/*", "script/*"]  
