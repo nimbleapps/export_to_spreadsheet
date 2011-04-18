@@ -50,7 +50,9 @@ The tests of this plugin requires a Google account.
 
 = Getting started
 
-A full sample that uses the plugin is available here : https://github.com/nimbleapps/export_to_spreadsheet_sample_app/
+A full sample that uses the plugin is available here: https://github.com/nimbleapps/export_to_spreadsheet_sample_app/
+
+The tutorial below allows you to re-build this sample step by step.
 
 == Simple Excel export
 
@@ -252,11 +254,13 @@ Tested on Rails 2.3.8 and Ruby 1.8.7.
 
 0.1.0 (2011)
 
-= Auteur
+= Disclaimer
 
-Nimble Apps Limited (developed by Michel Pigassou)
-
+This plugin was originaly written by Michel Pigassou and published by Nimble Apps Limited.
 http://www.salesclic.com
+
+At the time of the publication, the core features of the plugin are fully functional. Yet, Nimble Apps does not consider it as complete.
+We are sure that many enhancements can be made to the plugin and hope you will contribute to it.
 
 = Licence
 
