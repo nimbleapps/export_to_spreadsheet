@@ -36,7 +36,7 @@ module SalesClicExporter::Document
       @template_doc      = @google.spreadsheet_by_key(args[:google_doc_template_id]) if args[:google_doc_template_id]
 
       # If we can use a template we use it to create the file. Else we just create a new doc
-      @doc               = @template_doc ? @template_doc.copy_doc(@filename) : @google.create_spreadsheet(@filename)
+      @doc               = @template_doc ? @template_doc.duplicate(@filename) : @google.create_spreadsheet(@filename)
 
       # Ligne en cours d'écriture, afin de récupérer le dernier index écrit
       @current_row_index = 1 # Attention on démarre à la ligne 1
@@ -88,7 +88,7 @@ module SalesClicExporter::Document
     end
     
     def url
-      @doc.url
+      @doc.human_url
     end
 
     # On ne définit pas les méthodes title_x comme Spreadsheet ne supporte pas les titres.

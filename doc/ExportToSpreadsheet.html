@@ -66,10 +66,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>This is the module to include into an ActiveRecord model in order to make
+    <p>
+This is the module to include into an ActiveRecord model in order to make
 its data exportable. You will have to also define a compose_export method
-that tells the plug-in what data to export.</p>
+that tells the plug-in what data to export.
+</p>
 
 
   </div>
@@ -101,8 +102,9 @@ that tells the plug-in what data to export.</p>
         <dt id="export_use_fork-classvariable" class="">@@export_use_fork =
           <div class="docstring">
   <div class="discussion">
-    
-<p>Whether we want to use fork to run the export or not</p>
+    <p>
+Whether we want to use fork to run the export or not
+</p>
 
 
   </div>
@@ -173,8 +175,9 @@ that tells the plug-in what data to export.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Generates a complex String to ensure that a filename is uniq.</p>
+    <span class="summary_desc"><div class='inline'><p>
+Generates a complex String to ensure that a filename is uniq.
+</p>
 </div></span>
   
 </li>
@@ -196,9 +199,10 @@ that tells the plug-in what data to export.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The actual export (starting the JVM and exporting) is done in a forked
-process that can be terminated once the file is written.</p>
+    <span class="summary_desc"><div class='inline'><p>
+The actual export (starting the JVM and exporting) is done in a forked
+process that can be terminated once the file is written.
+</p>
 </div></span>
   
 </li>
@@ -278,8 +282,9 @@ process that can be terminated once the file is written.</p>
   
 </p><div class="docstring">
   <div class="discussion">
-    
-<p>Generates a complex String to ensure that a filename is uniq</p>
+    <p>
+Generates a complex String to ensure that a filename is uniq
+</p>
 
 
   </div>
@@ -321,13 +326,14 @@ process that can be terminated once the file is written.</p>
   
 </p><div class="docstring">
   <div class="discussion">
-    
-<p>The actual export (starting the JVM and exporting) is done in a forked
+    <p>
+The actual export (starting the JVM and exporting) is done in a forked
 process that can be terminated once the file is written. This is to make
 sure that the (high amount of) memory used by the JVM is freed once its job
 is over. With MySQL this messes a little with database connections so we
 have to close the connection and reopen it in each process. On Windows,
-this does not work so when do a basic export then.</p>
+this does not work so when do a basic export then.
+</p>
 
 
   </div>
@@ -346,8 +352,9 @@ this does not work so when do a basic export then.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>hash for export configuration</p>
+        <div class='inline'><p>
+hash for export configuration
+</p>
 </div>
       
     </li>
@@ -368,8 +375,9 @@ this does not work so when do a basic export then.</p>
       
       
         
-        <div class='inline'>
-<p>the document it-self, which is a class of <span class='object_link'><a href="SalesClicExporter/Document.html" title="SalesClicExporter::Document (module)">SalesClicExporter::Document</a></span></p>
+        <div class='inline'><p>
+the document it-self, which is a class of <span class='object_link'><a href="SalesClicExporter/Document.html" title="SalesClicExporter::Document (module)">SalesClicExporter::Document</a></span>
+</p>
 </div>
       
     </li>
@@ -386,9 +394,10 @@ this does not work so when do a basic export then.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>an exception is raised when an error occurs during the export. The log has
-to be checked to see what happened</p>
+        <div class='inline'><p>
+an exception is raised when an error occurs during the export. The log has
+to be checked to see what happened
+</p>
 </div>
       
     </li>
@@ -540,8 +549,9 @@ to be checked to see what happened</p>
         <span class="signature">- (<tt>Object</tt>) <strong>to_google_spreadsheets</strong>(oauth_token) </span>
         <div class="docstring">
   <div class="discussion">
-    
-<p>Exports a model to a Google Spreadsheet doc using a OAuth token</p>
+    <p>
+Exports a model to a Google Spreadsheet doc using a OAuth token
+</p>
 
 
   </div>
@@ -556,9 +566,10 @@ to be checked to see what happened</p>
         <span class="signature">- (<tt>Object</tt>) <strong>to_google_spreadsheets</strong>(google_login, google_password) </span>
         <div class="docstring">
   <div class="discussion">
-    
-<p>Exports a model to a Google Spreadsheet doc using a Google account
-credentials</p>
+    <p>
+Exports a model to a Google Spreadsheet doc using a Google account
+credentials
+</p>
 
 
   </div>
@@ -599,9 +610,9 @@ credentials</p>
 </div>
     
     <div id="footer">
-  Generated on Mon Apr 18 17:36:38 2011 by 
+  Generated on 05/16/11 10:59:52 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.8 (ruby-1.8.7).
+  0.6.7 (ruby-1.8.7).
 </div>
 
   </body>

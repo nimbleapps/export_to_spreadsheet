@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documentation by YARD 0.6.8</title>
+<title>Documentation by YARD 0.6.7</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -41,324 +41,382 @@
     
     <iframe id="search_frame"></iframe>
     
-    <div id="content"><div id='filecontents'>
-<h1>ExportToSpreadsheet</h1>
-
-<p>This plugin allows to add some export functionalities to a Rails
+    <div id="content"><div id='filecontents'><h1>ExportToSpreadsheet</h1>
+<p>
+This plugin allows to add some export functionalities to a Rails
 Application. The supported output formats are Microsoft Excel and Google
-Spreadsheets.</p>
-
+Spreadsheets.
+</p>
 <h2>Dependencies</h2>
-
-<p>It requires both JAVA (JDK and JRE) and the following gems :</p>
-<ul><li>
-<p>portablecontacts</p>
-</li><li>
-<p>google-spreadsheet-ruby</p>
-</li><li>
-<p>RJB</p>
-</li><li>
-<p>oauth</p>
-</li><li>
-<p>oauth-plugin</p>
-</li><li>
-<p>restful-authentication</p>
-</li><li>
-<p>highline</p>
-</li></ul>
-
-<p>Apache POI is also necessary but provided with this plugin.</p>
-
-<p>Depending on the target plateform (Linux, Mac or Windows), RJB could
+<p>
+It requires both JAVA (JDK and JRE) and the following gems :
+</p>
+<ul>
+<li><p>
+portablecontacts
+</p>
+</li>
+<li><p>
+google-spreadsheet-ruby
+</p>
+</li>
+<li><p>
+RJB
+</p>
+</li>
+<li><p>
+oauth
+</p>
+</li>
+<li><p>
+oauth-plugin
+</p>
+</li>
+<li><p>
+restful-authentication
+</p>
+</li>
+<li><p>
+highline
+</p>
+</li>
+</ul>
+<p>
+Apache POI is also necessary but provided with this plugin.
+</p>
+<p>
+Depending on the target plateform (Linux, Mac or Windows), RJB could
 require some path configuration, see <a
-href="http://rjb.rubyforge.org">rjb.rubyforge.org</a>/</p>
-
-<p>For the documentation generation the yard gem is required : <a
-href="https://github.com/lsegal/yard">github.com/lsegal/yard</a></p>
-
-<p>An optionnal rake task to clean the generated files was created : rake
-cron:tidy_exported_tmp_files</p>
-
+href="http://rjb.rubyforge.org">rjb.rubyforge.org</a>/
+</p>
+<p>
+For the documentation generation the yard gem is required : <a
+href="https://github.com/lsegal/yard">github.com/lsegal/yard</a>
+</p>
+<p>
+An optionnal rake task to clean the generated files was created : rake
+cron:tidy_exported_tmp_files
+</p>
 <h2>General installation remark</h2>
-
-<p>You need to set the JAVA_HOME environment variable either directly in your
+<p>
+You need to set the JAVA_HOME environment variable either directly in your
 system or in a ruby file contained in config/initializers/ where you would
-write for example :</p>
-
-<pre class="code"><span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span><span class='string val'>'JAVA_HOME'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;/opt/SDK/jdk&quot;</span>
+write for example :
+</p>
+<pre class="code">
+  <span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span><span class='string val'>'JAVA_HOME'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;/opt/SDK/jdk&quot;</span>
 </pre>
-
-<p>In some OS (seen in Windows), you might also have to set the CLASS_PATH
-adding the POI jar files :</p>
-
-<pre class="code"><span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span><span class='string val'>'CLASS_PATH'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='dot token'>.</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='contrib identifier id'>contrib</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='ooxml identifier id'>ooxml</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='ooxml identifier id'>ooxml</span><span class='minus op'>-</span><span class='schemas identifier id'>schemas</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='scratchpad identifier id'>scratchpad</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='C constant id'>C</span><span class='symbol val'>:\</span><span class='Program constant id'>Program</span> <span class='Files constant id'>Files</span> <span class='lparen token'>(</span><span class='x86 identifier id'>x86</span><span class='rparen token'>)</span>\<span class='Java constant id'>Java</span>\<span class='jre6 identifier id'>jre6</span>\<span class='lib identifier id'>lib</span>\<span class='ext identifier id'>ext</span>\<span class='QTJava constant id'>QTJava</span><span class='dot token'>.</span><span class='zip identifier id'>zip</span>
+<p>
+In some OS (seen in Windows), you might also have to set the CLASS_PATH
+adding the POI jar files :
+</p>
+<pre class="code">
+  <span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span><span class='string val'>'CLASS_PATH'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='dot token'>.</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='contrib identifier id'>contrib</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='ooxml identifier id'>ooxml</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='ooxml identifier id'>ooxml</span><span class='minus op'>-</span><span class='schemas identifier id'>schemas</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='D constant id'>D</span><span class='symbol val'>:\</span><span class='PATH_TO_APACHE_POI constant id'>PATH_TO_APACHE_POI</span>\<span class='lib identifier id'>lib</span>\<span class='apache identifier id'>apache</span><span class='minus op'>-</span><span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='float val'>3.7</span>\<span class='poi identifier id'>poi</span><span class='minus op'>-</span><span class='scratchpad identifier id'>scratchpad</span><span class='minus op'>-</span><span class='float val'>3.7</span><span class='minus op'>-</span><span class='beta2 identifier id'>beta2</span><span class='minus op'>-</span><span class='float val'>20100630</span><span class='dot token'>.</span><span class='jar identifier id'>jar</span><span class='semicolon token'>;</span><span class='C constant id'>C</span><span class='symbol val'>:\</span><span class='Program constant id'>Program</span> <span class='Files constant id'>Files</span> <span class='lparen token'>(</span><span class='x86 identifier id'>x86</span><span class='rparen token'>)</span>\<span class='Java constant id'>Java</span>\<span class='jre6 identifier id'>jre6</span>\<span class='lib identifier id'>lib</span>\<span class='ext identifier id'>ext</span>\<span class='QTJava constant id'>QTJava</span><span class='dot token'>.</span><span class='zip identifier id'>zip</span>
 </pre>
-
-<p>After installing the oauth-plugin (for Google Spreadsheet support), you
+<p>
+After installing the oauth-plugin (for Google Spreadsheet support), you
 need to generate a consumer : (check oauth -plugin documentation for full
-details)</p>
-
-<pre class="code"><span class='RAILS_ROOT constant id'>RAILS_ROOT</span><span class='div op'>/</span><span class='script identifier id'>script</span><span class='div op'>/</span><span class='generate identifier id'>generate</span> <span class='oauth_consumer identifier id'>oauth_consumer</span>
-<span class='rake identifier id'>rake</span> <span class='db identifier id'>db</span><span class='symbol val'>:migrate</span>
+details)
+</p>
+<pre class="code">
+  <span class='RAILS_ROOT constant id'>RAILS_ROOT</span><span class='div op'>/</span><span class='script identifier id'>script</span><span class='div op'>/</span><span class='generate identifier id'>generate</span> <span class='oauth_consumer identifier id'>oauth_consumer</span>
+  <span class='rake identifier id'>rake</span> <span class='db identifier id'>db</span><span class='symbol val'>:migrate</span>
 </pre>
-
 <h2>Installation on a production server with Apache and Passenger</h2>
-
-<p>Passenger has to be launched with the same user as the application files’
-owner to be able to write files into RAILS_ROOT/tmp</p>
-
-<p>To customize this, add the following line in
-/etc/apache2/mods-enabled/passenger.conf :</p>
-
-<pre class="code"><span class='PassengerDefaultUser constant id'>PassengerDefaultUser</span> <span class='app_user identifier id'>app_user</span>
+<p>
+Passenger has to be launched with the same user as the application
+files&#8217; owner to be able to write files into RAILS_ROOT/tmp
+</p>
+<p>
+To customize this, add the following line in
+/etc/apache2/mods-enabled/passenger.conf :
+</p>
+<pre class="code">
+  <span class='PassengerDefaultUser constant id'>PassengerDefaultUser</span> <span class='app_user identifier id'>app_user</span>
 </pre>
-
 <h2>Tests</h2>
-
-<p>The tests of this plugin requires a Google account.</p>
-
+<p>
+The tests of this plugin requires a Google account.
+</p>
 <h1>Getting started</h1>
-
-<p>A full sample that uses the plugin is available here: <a
-href="https://github.com/nimbleapps/export_to_spreadsheet_sample_app">github.com/nimbleapps/export_to_spreadsheet_sample_app</a>/</p>
-
-<p>The tutorial below allows you to re-build this sample step by step.</p>
-
+<p>
+A full sample that uses the plugin is available here: <a
+href="https://github.com/nimbleapps/export_to_spreadsheet_sample_app">github.com/nimbleapps/export_to_spreadsheet_sample_app</a>/
+</p>
+<p>
+The tutorial below allows you to re-build this sample step by step.
+</p>
 <h2>Simple Excel export</h2>
+<p>
+Once the plugin is installed (see Installation section for that), you can
+do the following to get a valid Excel export in 10 steps :
+</p>
+<p>
+1/ Create your Rails app :
+</p>
+<p>
+rails my_application
+</p>
+<p>
+2/ Add the reference to the gem in your config/environment.rb :
+</p>
+<p>
+config.gem &#8220;export_to_spreadsheet&#8220;
+</p>
+<p>
+3/ Generate a scaffold (for instance a User one) :
+</p>
+<p>
+ruby script/generate scaffold User first_name:string last_name:string
+</p>
+<p>
+4/ Perform the migration to create the SQL table :
+</p>
+<p>
+rake db:migrate
+</p>
+<p>
+5/ Launch your server, go to your app URL (<a
+href="http://localhost:3000/users">localhost:3000/users</a>)
+</p>
+<p>
+6/ Use the interface to add some users.
+</p>
+<p>
+7/ Add a class in your models to perform the export, this class has to
+include the plugin :
+</p>
+<pre class="code">
+  <span class='class class kw'>class</span> <span class='UserExporter constant id'>UserExporter</span>
+    <span class='include identifier id'>include</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
 
-<p>Once the plugin is installed (see Installation section for that), you can
-do the following to get a valid Excel export in 10 steps :</p>
-
-<p>1/ Create your Rails app :</p>
-
-<p>rails my_application</p>
-
-<p>2/ Add the reference to the gem in your config/environment.rb :</p>
-
-<p>config.gem “export_to_spreadsheet”</p>
-
-<p>3/ Generate a scaffold (for instance a User one) :</p>
-
-<p>ruby script/generate scaffold User first_name:string last_name:string</p>
-
-<p>4/ Perform the migration to create the SQL table :</p>
-
-<p>rake db:migrate</p>
-
-<p>5/ Launch your server, go to your app URL (<a
-href="http://localhost:3000/users">localhost:3000/users</a>)</p>
-
-<p>6/ Use the interface to add some users.</p>
-
-<p>7/ Add a class in your models to perform the export, this class has to
-include the plugin :</p>
-
-<pre class="code"><span class='class class kw'>class</span> <span class='UserExporter constant id'>UserExporter</span>
-  <span class='include identifier id'>include</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
-  <span class='comment val'># Actually building the output file whatever the format</span>
-  <span class='def def kw'>def</span> <span class='compose_export identifier id'>compose_export</span>
-    <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='write identifier id'>write</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='d identifier id'>d</span><span class='bitor op'>|</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_1 identifier id'>title_1</span><span class='lparen token'>(</span><span class='string val'>&quot;Sample Title User Export&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='title_2 identifier id'>title_2</span><span class='lparen token'>(</span><span class='string val'>&quot;We are going to export the users&quot;</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_3 identifier id'>title_3</span><span class='lparen token'>(</span><span class='string val'>&quot;Date : &quot;</span> <span class='plus op'>+</span> <span class='Date constant id'>Date</span><span class='dot token'>.</span><span class='today identifier id'>today</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='freezepane identifier id'>freezepane</span>
-      <span class='keys_array identifier id'>keys_array</span> <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='string val'>&quot;First Name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Last Name&quot;</span><span class='rbrack token'>]</span>
-      <span class='values identifier id'>values</span>     <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-      <span class='User constant id'>User</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='user identifier id'>user</span><span class='comma token'>,</span><span class='i identifier id'>i</span><span class='bitor op'>|</span>
-        <span class='values identifier id'>values</span>     <span class='lshft op'>&lt;&lt;</span>  <span class='lbrack token'>[</span><span class='user identifier id'>user</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='comma token'>,</span> <span class='user identifier id'>user</span><span class='dot token'>.</span><span class='last_name identifier id'>last_name</span><span class='rbrack token'>]</span>
+    <span class='comment val'># Actually building the output file whatever the format</span>
+    <span class='def def kw'>def</span> <span class='compose_export identifier id'>compose_export</span>
+      <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='write identifier id'>write</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='d identifier id'>d</span><span class='bitor op'>|</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_1 identifier id'>title_1</span><span class='lparen token'>(</span><span class='string val'>&quot;Sample Title User Export&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='title_2 identifier id'>title_2</span><span class='lparen token'>(</span><span class='string val'>&quot;We are going to export the users&quot;</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_3 identifier id'>title_3</span><span class='lparen token'>(</span><span class='string val'>&quot;Date : &quot;</span> <span class='plus op'>+</span> <span class='Date constant id'>Date</span><span class='dot token'>.</span><span class='today identifier id'>today</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='freezepane identifier id'>freezepane</span>
+        <span class='keys_array identifier id'>keys_array</span> <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='string val'>&quot;First Name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Last Name&quot;</span><span class='rbrack token'>]</span>
+        <span class='values identifier id'>values</span>     <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+        <span class='User constant id'>User</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='user identifier id'>user</span><span class='comma token'>,</span><span class='i identifier id'>i</span><span class='bitor op'>|</span>
+          <span class='values identifier id'>values</span>     <span class='lshft op'>&lt;&lt;</span>  <span class='lbrack token'>[</span><span class='user identifier id'>user</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='comma token'>,</span> <span class='user identifier id'>user</span><span class='dot token'>.</span><span class='last_name identifier id'>last_name</span><span class='rbrack token'>]</span>
+        <span class='end end kw'>end</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='h_table identifier id'>h_table</span><span class='lparen token'>(</span><span class='values identifier id'>values</span><span class='comma token'>,</span> <span class='keys_array identifier id'>keys_array</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:border_bottom</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span>
       <span class='end end kw'>end</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='h_table identifier id'>h_table</span><span class='lparen token'>(</span><span class='values identifier id'>values</span><span class='comma token'>,</span> <span class='keys_array identifier id'>keys_array</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:border_bottom</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span>
+      <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
     <span class='end end kw'>end</span>
-    <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
   <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
 </pre>
-
-<p>8/ In the User controller, add a method for the export and the download of
-the document :</p>
-
-<pre class="code"><span class='def def kw'>def</span> <span class='export identifier id'>export</span>
-  <span class='comment val'># Option which is handled by default by the plugin</span>
-  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
-  <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
-  <span class='export identifier id'>export</span> <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_excel identifier id'>to_excel</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
-  <span class='download identifier id'>download</span> <span class='export identifier id'>export</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
-<span class='end end kw'>end</span>
-<span class='private identifier id'>private</span>
-<span class='def def kw'>def</span> <span class='download identifier id'>download</span><span class='lparen token'>(</span><span class='server_file_path identifier id'>server_file_path</span><span class='rparen token'>)</span>
-  <span class='send_file identifier id'>send_file</span> <span class='server_file_path identifier id'>server_file_path</span>
-  <span class='rescue rescue kw'>rescue</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='e identifier id'>e</span>
-    <span class='raise identifier id'>raise</span> <span class='Exception constant id'>Exception</span><span class='comma token'>,</span> <span class='dstring node'>&quot;File not found. Please ensure that your file was saved. Error was: #{e}&quot;</span>
-<span class='end end kw'>end</span>
-</pre>
-
-<p>9/ Modify the routes.rb file to map this new action :</p>
-
-<p>map.resources :users, :collection =&gt; { :export =&gt; :get }</p>
-
-<p>10/ Congratulations ! You can now export all the users in an Excel
-Spreadsheet using the link : <a
-href="http://localhost:3000/users/export">localhost:3000/users/export</a></p>
-
-<h2>Advanced Spreadsheet export capabilities</h2>
-
-<p>Your first export worked. Now, what if you want to add a parameter to your
-export such as the number of users to export.</p>
-
-<p>Let’s do this :</p>
-
-<p>1/ Modify your export export action in the users controller :</p>
-
-<pre class="code"><span class='def def kw'>def</span> <span class='export identifier id'>export</span>
-  <span class='export_format identifier id'>export_format</span>         <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:export_format</span><span class='rbrack token'>]</span>
-  <span class='records_nb_to_export identifier id'>records_nb_to_export</span>  <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:records_nb_to_export</span><span class='rbrack token'>]</span>
-  <span class='comment val'># first option which is handled by default by the plugin</span>
-  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
-  <span class='comment val'># adding an option which is personalized in lib/personalized_export_properties</span>
-  <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:records_nb_to_export</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='records_nb_to_export identifier id'>records_nb_to_export</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
-  <span class='if if kw'>if</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;excel&quot;</span>
+<p>
+8/ In the User controller, add a method for the export and the download of
+the document :
+</p>
+<pre class="code">
+  <span class='def def kw'>def</span> <span class='export identifier id'>export</span>
+    <span class='comment val'># Option which is handled by default by the plugin</span>
+    <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
+    <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
     <span class='export identifier id'>export</span> <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_excel identifier id'>to_excel</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
     <span class='download identifier id'>download</span> <span class='export identifier id'>export</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
   <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
-</pre>
 
-<p>2/ Modify the routes to handle these new parameters</p>
-
-<pre class="code"><span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:users</span>
-<span class='map identifier id'>map</span><span class='dot token'>.</span><span class='connect identifier id'>connect</span> <span class='string val'>'users/export/:export_format/:records_nb_to_export'</span><span class='comma token'>,</span> <span class='symbol val'>:controller</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'users'</span><span class='comma token'>,</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'export'</span>
-</pre>
-
-<p>3/ Add a plugin customization to handle this records_nb_to_export
-parameter. To do so, add a file before_prepare_export.rb in your lib folder
-and add the following code :</p>
-
-<pre class="code"><span class='module module kw'>module</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
-  <span class='comment val'># Configures export before generating a document</span>
-  <span class='def def kw'>def</span> <span class='before_prepare_export_first identifier id'>before_prepare_export_first</span><span class='lparen token'>(</span><span class='target identifier id'>target</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-    <span class='@records_nb_to_export ivar id'>@records_nb_to_export</span>   <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='symbol val'>:records_nb_to_export</span><span class='rparen token'>)</span>   <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
-    <span class='return return kw'>return</span> <span class='options identifier id'>options</span>
+  <span class='private identifier id'>private</span>
+  <span class='def def kw'>def</span> <span class='download identifier id'>download</span><span class='lparen token'>(</span><span class='server_file_path identifier id'>server_file_path</span><span class='rparen token'>)</span>
+    <span class='send_file identifier id'>send_file</span> <span class='server_file_path identifier id'>server_file_path</span>
+    <span class='rescue rescue kw'>rescue</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='e identifier id'>e</span>
+      <span class='raise identifier id'>raise</span> <span class='Exception constant id'>Exception</span><span class='comma token'>,</span> <span class='dstring node'>&quot;File not found. Please ensure that your file was saved. Error was: #{e}&quot;</span>
   <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
 </pre>
+<p>
+9/ Modify the routes.rb file to map this new action :
+</p>
+<p>
+map.resources :users, :collection => { :export => :get }
+</p>
+<p>
+10/ Congratulations ! You can now export all the users in an Excel
+Spreadsheet using the link : <a
+href="http://localhost:3000/users/export">localhost:3000/users/export</a>
+</p>
+<h2>Advanced Spreadsheet export capabilities</h2>
+<p>
+Your first export worked. Now, what if you want to add a parameter to your
+export such as the number of users to export.
+</p>
+<p>
+Let&#8217;s do this :
+</p>
+<p>
+1/ Modify your export export action in the users controller :
+</p>
+<pre class="code">
+  <span class='def def kw'>def</span> <span class='export identifier id'>export</span>
+    <span class='export_format identifier id'>export_format</span>         <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:export_format</span><span class='rbrack token'>]</span>
+    <span class='records_nb_to_export identifier id'>records_nb_to_export</span>  <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:records_nb_to_export</span><span class='rbrack token'>]</span>
 
-<p>4/ Change the ExportUser class where the variable @records_nb_to_export is
-now available :</p>
-
-<pre class="code"><span class='class class kw'>class</span> <span class='UserExporter constant id'>UserExporter</span>
-  <span class='include identifier id'>include</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
-  <span class='comment val'># Actually building the output file whatever the format</span>
-  <span class='def def kw'>def</span> <span class='compose_export identifier id'>compose_export</span>
-    <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='write identifier id'>write</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='d identifier id'>d</span><span class='bitor op'>|</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_1 identifier id'>title_1</span><span class='lparen token'>(</span><span class='string val'>&quot;Sample Title User Export&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='title_2 identifier id'>title_2</span><span class='lparen token'>(</span><span class='dstring node'>&quot;We are going to export the first #{@records_nb_to_export} users&quot;</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_3 identifier id'>title_3</span><span class='lparen token'>(</span><span class='string val'>&quot;Date : &quot;</span> <span class='plus op'>+</span> <span class='Date constant id'>Date</span><span class='dot token'>.</span><span class='today identifier id'>today</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='freezepane identifier id'>freezepane</span>
-      <span class='keys_array identifier id'>keys_array</span> <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='string val'>&quot;First Name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Last Name&quot;</span><span class='rbrack token'>]</span>
-      <span class='values identifier id'>values</span>     <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-      <span class='User constant id'>User</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='user identifier id'>user</span><span class='comma token'>,</span><span class='i identifier id'>i</span><span class='bitor op'>|</span>
-        <span class='if if kw'>if</span> <span class='i identifier id'>i</span> <span class='lt op'>&lt;</span> <span class='@records_nb_to_export ivar id'>@records_nb_to_export</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
-          <span class='values identifier id'>values</span>     <span class='lshft op'>&lt;&lt;</span>  <span class='lbrack token'>[</span><span class='user identifier id'>user</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='comma token'>,</span> <span class='user identifier id'>user</span><span class='dot token'>.</span><span class='last_name identifier id'>last_name</span><span class='rbrack token'>]</span>
-        <span class='else else kw'>else</span>
-          <span class='break break kw'>break</span>
-        <span class='end end kw'>end</span>
-      <span class='end end kw'>end</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='h_table identifier id'>h_table</span><span class='lparen token'>(</span><span class='values identifier id'>values</span><span class='comma token'>,</span> <span class='keys_array identifier id'>keys_array</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:border_bottom</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-      <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span>
+    <span class='comment val'># first option which is handled by default by the plugin</span>
+    <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
+    <span class='comment val'># adding an option which is personalized in lib/personalized_export_properties</span>
+    <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:records_nb_to_export</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='records_nb_to_export identifier id'>records_nb_to_export</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+    <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+    <span class='if if kw'>if</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;excel&quot;</span>
+      <span class='export identifier id'>export</span> <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_excel identifier id'>to_excel</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+      <span class='download identifier id'>download</span> <span class='export identifier id'>export</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
     <span class='end end kw'>end</span>
-    <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
-  <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
-</pre>
 
-<p>5/ Congratulations ! You can now export some data based on any users input
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+2/ Modify the routes to handle these new parameters
+</p>
+<pre class="code">
+  <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:users</span>
+  <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='connect identifier id'>connect</span> <span class='string val'>'users/export/:export_format/:records_nb_to_export'</span><span class='comma token'>,</span> <span class='symbol val'>:controller</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'users'</span><span class='comma token'>,</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'export'</span>
+</pre>
+<p>
+3/ Add a plugin customization to handle this records_nb_to_export
+parameter. To do so, add a file before_prepare_export.rb in your lib folder
+and add the following code :
+</p>
+<pre class="code">
+  <span class='module module kw'>module</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
+
+    <span class='comment val'># Configures export before generating a document</span>
+    <span class='def def kw'>def</span> <span class='before_prepare_export_first identifier id'>before_prepare_export_first</span><span class='lparen token'>(</span><span class='target identifier id'>target</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+      <span class='@records_nb_to_export ivar id'>@records_nb_to_export</span>   <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='symbol val'>:records_nb_to_export</span><span class='rparen token'>)</span>   <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+      <span class='return return kw'>return</span> <span class='options identifier id'>options</span>
+    <span class='end end kw'>end</span>
+
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+4/ Change the ExportUser class where the variable @records_nb_to_export is
+now available :
+</p>
+<pre class="code">
+  <span class='class class kw'>class</span> <span class='UserExporter constant id'>UserExporter</span>
+    <span class='include identifier id'>include</span> <span class='ExportToSpreadsheet constant id'>ExportToSpreadsheet</span>
+
+    <span class='comment val'># Actually building the output file whatever the format</span>
+    <span class='def def kw'>def</span> <span class='compose_export identifier id'>compose_export</span>
+      <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='write identifier id'>write</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='d identifier id'>d</span><span class='bitor op'>|</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_1 identifier id'>title_1</span><span class='lparen token'>(</span><span class='string val'>&quot;Sample Title User Export&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='title_2 identifier id'>title_2</span><span class='lparen token'>(</span><span class='dstring node'>&quot;We are going to export the first #{@records_nb_to_export} users&quot;</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='title_3 identifier id'>title_3</span><span class='lparen token'>(</span><span class='string val'>&quot;Date : &quot;</span> <span class='plus op'>+</span> <span class='Date constant id'>Date</span><span class='dot token'>.</span><span class='today identifier id'>today</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='freezepane identifier id'>freezepane</span>
+        <span class='keys_array identifier id'>keys_array</span> <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='string val'>&quot;First Name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Last Name&quot;</span><span class='rbrack token'>]</span>
+        <span class='values identifier id'>values</span>     <span class='assign token'>=</span>  <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+        <span class='User constant id'>User</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='user identifier id'>user</span><span class='comma token'>,</span><span class='i identifier id'>i</span><span class='bitor op'>|</span>
+          <span class='if if kw'>if</span> <span class='i identifier id'>i</span> <span class='lt op'>&lt;</span> <span class='@records_nb_to_export ivar id'>@records_nb_to_export</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+            <span class='values identifier id'>values</span>     <span class='lshft op'>&lt;&lt;</span>  <span class='lbrack token'>[</span><span class='user identifier id'>user</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='comma token'>,</span> <span class='user identifier id'>user</span><span class='dot token'>.</span><span class='last_name identifier id'>last_name</span><span class='rbrack token'>]</span>
+          <span class='else else kw'>else</span>
+            <span class='break break kw'>break</span>
+          <span class='end end kw'>end</span>
+        <span class='end end kw'>end</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='h_table identifier id'>h_table</span><span class='lparen token'>(</span><span class='values identifier id'>values</span><span class='comma token'>,</span> <span class='keys_array identifier id'>keys_array</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:border_bottom</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+        <span class='d identifier id'>d</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span><span class='dot token'>.</span><span class='newline identifier id'>newline</span>
+      <span class='end end kw'>end</span>
+      <span class='@doc ivar id'>@doc</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+5/ Congratulations ! You can now export some data based on any users input
 parameter following this example. To check the example, visit <a
 href="http://localhost:3000/users/export/excel/3">localhost:3000/users/export/excel/3</a>
-which will export the three first users.</p>
-
+which will export the three first users.
+</p>
 <h2>Google Spreadsheet export</h2>
-
-<p>To perform the Google Spreadsheet export, you need to follow the bellow :</p>
-
-<p>1/ Ensure the oauth_consumer script run properly. (See General installation
-remark)</p>
-
-<p>2/ Follow the documentation of oauth and oauth-plugin gems to manage the
-oauth permission process. Among the required steps, don’t forget to add
-your application credentials (the credentials it uses to connect to Google
-Apps) in the file config/initializers/oauth_consumers.rb :</p>
-
-<pre class="code"><span class='OAUTH_CREDENTIALS constant id'>OAUTH_CREDENTIALS</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-  <span class='symbol val'>:google</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-    <span class='symbol val'>:key</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'your_key'</span><span class='comma token'>,</span>
-    <span class='symbol val'>:secret</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'your_secret'</span><span class='comma token'>,</span>
-    <span class='symbol val'>:scope</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'https://docs.google.com/feeds/ https://spreadsheets.google.com/feeds/ https://www.google.com/m8/feeds/ https://www.google.com/calendar/feeds/'</span><span class='comma token'>,</span>
-    <span class='symbol val'>:options</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='symbol val'>:site</span>               <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'https://www.google.com'</span><span class='comma token'>,</span>
-      <span class='symbol val'>:request_token_path</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthGetRequestToken'</span><span class='comma token'>,</span>
-      <span class='symbol val'>:access_token_path</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthGetAccessToken'</span><span class='comma token'>,</span>
-      <span class='symbol val'>:authorize_path</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthAuthorizeToken'</span><span class='comma token'>,</span>
-      <span class='symbol val'>:signature_method</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'HMAC-SHA1'</span>
+<p>
+To perform the Google Spreadsheet export, you need to follow the bellow :
+</p>
+<p>
+1/ Ensure the oauth_consumer script run properly. (See General installation
+remark)
+</p>
+<p>
+2/ Follow the documentation of oauth and oauth-plugin gems to manage the
+oauth permission process. Among the required steps, don&#8217;t forget to
+add your application credentials (the credentials it uses to connect to
+Google Apps) in the file config/initializers/oauth_consumers.rb :
+</p>
+<pre class="code">
+  <span class='OAUTH_CREDENTIALS constant id'>OAUTH_CREDENTIALS</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
+    <span class='symbol val'>:google</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
+      <span class='symbol val'>:key</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'your_key'</span><span class='comma token'>,</span>
+      <span class='symbol val'>:secret</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'your_secret'</span><span class='comma token'>,</span>
+      <span class='symbol val'>:scope</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'https://docs.google.com/feeds/ https://spreadsheets.google.com/feeds/ https://www.google.com/m8/feeds/ https://www.google.com/calendar/feeds/'</span><span class='comma token'>,</span>
+      <span class='symbol val'>:options</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
+        <span class='symbol val'>:site</span>               <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'https://www.google.com'</span><span class='comma token'>,</span>
+        <span class='symbol val'>:request_token_path</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthGetRequestToken'</span><span class='comma token'>,</span>
+        <span class='symbol val'>:access_token_path</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthGetAccessToken'</span><span class='comma token'>,</span>
+        <span class='symbol val'>:authorize_path</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'/accounts/OAuthAuthorizeToken'</span><span class='comma token'>,</span>
+        <span class='symbol val'>:signature_method</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'HMAC-SHA1'</span>
+      <span class='rbrace token'>}</span>
     <span class='rbrace token'>}</span>
   <span class='rbrace token'>}</span>
-<span class='rbrace token'>}</span>
 </pre>
+<p>
+3/ Modify the export action of the user controller :
+</p>
+<pre class="code">
+  <span class='def def kw'>def</span> <span class='export identifier id'>export</span>
+    <span class='export_format identifier id'>export_format</span>         <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:export_format</span><span class='rbrack token'>]</span>
+    <span class='records_nb_to_export identifier id'>records_nb_to_export</span>  <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:records_nb_to_export</span><span class='rbrack token'>]</span>
 
-<p>3/ Modify the export action of the user controller :</p>
+    <span class='comment val'># first option which is handled by default by the plugin</span>
+    <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
+    <span class='comment val'># adding an option which is personalized in lib/personalized_export_properties</span>
+    <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:records_nb_to_export</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='records_nb_to_export identifier id'>records_nb_to_export</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+    <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+    <span class='if if kw'>if</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;google&quot;</span>
+      <span class='comment val'># assuming the user's token is the first one in the table</span>
+      <span class='google_token_client identifier id'>google_token_client</span> <span class='assign token'>=</span> <span class='GoogleToken constant id'>GoogleToken</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='dot token'>.</span><span class='client identifier id'>client</span>
+      <span class='export identifier id'>export</span>              <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_google_spreadsheets identifier id'>to_google_spreadsheets</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:access_token</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='google_token_client identifier id'>google_token_client</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span> <span class='options identifier id'>options</span><span class='rparen token'>)</span>
+      <span class='render identifier id'>render</span> <span class='symbol val'>:text</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Generation Complete. Check your Google Apps account.&quot;</span>
+    <span class='elsif elsif kw'>elsif</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;excel&quot;</span>
+      <span class='export identifier id'>export</span> <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_excel identifier id'>to_excel</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+      <span class='download identifier id'>download</span> <span class='export identifier id'>export</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
+    <span class='end end kw'>end</span>
 
-<pre class="code"><span class='def def kw'>def</span> <span class='export identifier id'>export</span>
-  <span class='export_format identifier id'>export_format</span>         <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:export_format</span><span class='rbrack token'>]</span>
-  <span class='records_nb_to_export identifier id'>records_nb_to_export</span>  <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:records_nb_to_export</span><span class='rbrack token'>]</span>
-  <span class='comment val'># first option which is handled by default by the plugin</span>
-  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Users Export Example&quot;</span><span class='rbrace token'>}</span>
-  <span class='comment val'># adding an option which is personalized in lib/personalized_export_properties</span>
-  <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:records_nb_to_export</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='records_nb_to_export identifier id'>records_nb_to_export</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='u_e identifier id'>u_e</span>    <span class='assign token'>=</span> <span class='UserExporter constant id'>UserExporter</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
-  <span class='if if kw'>if</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;google&quot;</span>
-    <span class='comment val'># assuming the user's token is the first one in the table</span>
-    <span class='google_token_client identifier id'>google_token_client</span> <span class='assign token'>=</span> <span class='GoogleToken constant id'>GoogleToken</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='dot token'>.</span><span class='client identifier id'>client</span>
-    <span class='export identifier id'>export</span>              <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_google_spreadsheets identifier id'>to_google_spreadsheets</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:access_token</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='google_token_client identifier id'>google_token_client</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span> <span class='options identifier id'>options</span><span class='rparen token'>)</span>
-    <span class='render identifier id'>render</span> <span class='symbol val'>:text</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Generation Complete. Check your Google Apps account.&quot;</span>
-  <span class='elsif elsif kw'>elsif</span> <span class='export_format identifier id'>export_format</span> <span class='eq op'>==</span> <span class='string val'>&quot;excel&quot;</span>
-    <span class='export identifier id'>export</span> <span class='assign token'>=</span> <span class='u_e identifier id'>u_e</span><span class='dot token'>.</span><span class='to_excel identifier id'>to_excel</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
-    <span class='download identifier id'>download</span> <span class='export identifier id'>export</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
   <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
 </pre>
-
-<p>4/ Congratulations ! You can now export also spreadsheet in a Google
+<p>
+4/ Congratulations ! You can now export also spreadsheet in a Google
 account. To check the example, visit <a
 href="http://localhost:3000/users/export/google/3">localhost:3000/users/export/google/3</a>
-which will export the three first users in a Google Spreadsheet.</p>
-
+which will export the three first users in a Google Spreadsheet.
+</p>
 <h1>Environments</h1>
-
-<p>Tested on Rails 2.3.8 and Ruby 1.8.7.</p>
-
+<p>
+Tested on Rails 2.3.8 and Ruby 1.8.7.
+</p>
 <h1>Version</h1>
-
-<p>0.1.1 (2011)</p>
-
+<p>
+0.1.1 (2011)
+</p>
 <h1>Disclaimer</h1>
-
-<p>This plugin was originaly written by Michel Pigassou and published by
+<p>
+This plugin was originaly written by Michel Pigassou and published by
 Nimble Apps Limited. <a
-href="http://www.salesclic.com">www.salesclic.com</a></p>
-
-<p>At the time of the publication, the core features of the plugin are fully
+href="http://www.salesclic.com">www.salesclic.com</a>
+</p>
+<p>
+At the time of the publication, the core features of the plugin are fully
 functional. Yet, Nimble Apps does not consider it as complete. We are sure
 that many enhancements can be made to the plugin and hope you will
-contribute to it.</p>
-
+contribute to it.
+</p>
 <h1>Licence</h1>
-
-<p>MIT license</p>
+<p>
+MIT license
+</p>
 </div></div>
     
     <div id="footer">
-  Generated on Mon Apr 18 17:36:37 2011 by 
+  Generated on 05/16/11 10:59:51 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.8 (ruby-1.8.7).
+  0.6.7 (ruby-1.8.7).
 </div>
 
   </body>
