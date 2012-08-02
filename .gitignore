@@ -2,3 +2,6 @@ pkg
 Manifest
 .yardoc
 /.idea
+
+# "gem build export_to_spreadsheet.gemspec", for local installation, creates a .gem file.
+*.gem

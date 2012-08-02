@@ -8,8 +8,7 @@ module SalesClicExporter::Document
   #   SalesClicExporter::Document.allowed_extensions #=> ['xls', 'google_spreadsheet']
   def self.allowed_extensions
     subclasses = self::Base.subclasses
-    subclasses.map do |str_klass|
-      klass = str_klass.constantize
+    subclasses.map do |klass|
       klass.const_defined?(:Extension)   ?   klass::Extension   :   nil
     end.compact
   end

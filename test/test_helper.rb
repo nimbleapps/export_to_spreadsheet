@@ -1,6 +1,4 @@
 require 'rubygems'
-require 'sqlite3'
-require 'ruby-debug'
 require 'test/unit'
 require 'active_record'
 require 'active_support/test_case'
