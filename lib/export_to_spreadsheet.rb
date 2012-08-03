@@ -12,8 +12,8 @@
 #     end
 module ExportToSpreadsheet
   # If we have a file that tweaks the export plug-in from the point of view of the application, we require it
-  if defined?(RAILS_ROOT)
-    required_file = RAILS_ROOT + '/lib/before_prepare_export.rb'
+  if defined?(Rails)
+    required_file = "#{Rails.root}/lib/before_prepare_export.rb"
     require required_file if File.exists?(required_file)
   end
 
