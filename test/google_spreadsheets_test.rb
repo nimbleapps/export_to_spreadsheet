@@ -4,9 +4,9 @@ class GoogleSpreadsheetsTest < ActiveSupport::TestCase
   
   Sample_string = 'Test chaîne'
   
-  if ! File.file?(ENV["HOME"] + '/.ruby_google_spreadsheet.token')
+  if ! File.file?(ENV["HOME"] + '/.ruby_google_drive.token')
     puts "Pour la connexion à Google vous devez indiquer votre email de connexion et votre mot de passe."
-    puts "Les tokens générés sont stockés dans le fichier ~/.ruby_google_spreadsheet.token que vous pouvez supprimer."
+    puts "Les tokens générés sont stockés dans le fichier ~/.ruby_google_drive.token que vous pouvez supprimer."
   end
   
   def setup

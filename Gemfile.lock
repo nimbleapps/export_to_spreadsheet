@@ -4,8 +4,7 @@ PATH
     export_to_spreadsheet (0.2.0.pre)
       google-spreadsheet-ruby (>= 0.1.5)
       oauth
-      oauth-plugin
-      portablecontacts
+      oauth-plugin (>= 0.4.1)
       rails (>= 3.0)
       rjb
 
@@ -79,9 +78,6 @@ GEM
       faraday (~> 0.7)
       multi_json (~> 1.0)
     polyglot (0.3.3)
-    portablecontacts (0.1.0)
-      json
-      oauth (>= 0.3.6)
     rack (1.2.5)
     rack-mount (0.6.14)
       rack (>= 1.0.0)

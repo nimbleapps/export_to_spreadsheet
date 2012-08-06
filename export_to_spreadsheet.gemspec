@@ -17,12 +17,6 @@ Gem::Specification.new do |s|
   # It also exists in Rails 2 but the spec is different.
   s.add_dependency 'rails', '>= 3.0'
 
-  ## 'portablecontacts' is in the dependencies because the most recent version of 'oauth-plugin' available
-  ## on github (v0.3.14) has an implicit dependency against this gem (in 'google_token.rb').
-  ## This is corrected by this commit https://github.com/pelle/oauth-plugin/commit/3ff9ccf444f2810214ada6fca3da34008ff52795
-  ## but there is no release yet with this commit.
-  s.add_dependency 'portablecontacts'
-
   # Plug-in that handles Google Spreadsheets API communication
   s.add_dependency 'google-spreadsheet-ruby', '>=0.1.5'
 
@@ -31,7 +25,7 @@ Gem::Specification.new do |s|
   # Plug-in that handles Google API authentication
   s.add_dependency 'oauth'
 
-  s.add_dependency 'oauth-plugin'
+  s.add_dependency 'oauth-plugin', ">=0.4.1"
 
   s.add_development_dependency 'yard'
   s.add_development_dependency 'highline'
