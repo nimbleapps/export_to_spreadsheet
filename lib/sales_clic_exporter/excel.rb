@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SalesClicExporter::Document
 
   # Describes an Excel document

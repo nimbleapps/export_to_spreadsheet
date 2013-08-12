@@ -4,6 +4,11 @@ This plugin allows to add some export functionalities to a Rails Application. Th
 
 == Dependencies
 
+This gem has been tested on the following versions of ruby and rails
+v0.1.2 - ruby 1.8.7 and rails 2.3.8
+v0.2.0 - ruby 1.8.7 and rails 3.0.20/3.1.12
+v0.3.0 - ruby 1.9.3 and rails 3.1.12 
+
 It requires both JAVA (JDK and JRE) and the following gems :
 - portablecontacts
 - google-spreadsheet-ruby
@@ -245,14 +250,6 @@ Among the required steps, don't forget to add your application credentials (the 
 
 4/ Congratulations ! You can now export also spreadsheet in a Google account. To check the example, visit http://localhost:3000/users/export/google/3 which will export the three first users in a Google Spreadsheet.
 
-
-= Environments
-
-Tested on Rails 2.3.8 and Ruby 1.8.7.
-
-= Version
-
-0.1.1 (2011)
 
 = Disclaimer
 

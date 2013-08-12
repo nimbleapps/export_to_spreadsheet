@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Document describes a format to which data can be exported.
 # A document can contain titles, lines or arrays.
 module SalesClicExporter::Document
@@ -79,10 +80,13 @@ module SalesClicExporter::Document
       # Extraction du dernier argument
       options = (headers_with_options.last.kind_of?(Hash) && headers_with_options.respond_to?('each'))   ?   headers_with_options.pop   :   {}
       
-      # Pour plus de lisibilité on renomme la variable à utiliser dans le reste de la méthode
-      # Le * permet d'appliatir le tableau d'arguments, qui est contenu dans un tableau sinon (en fait, à ce moment là
-      # headers_with_options (sans le *) vaut [['a', 'b', 'c']] par exemple
-      headers = *headers_with_options
+      # At this point headers_with_options only contains the headers so we rename the variable for readability
+      # If the headers were passed as an array then they will be contained in another array, i.e. [['a', 'b', 'c']] so we extract them
+      headers = if headers_with_options.size == 1 && headers_with_options.first.kind_of?(Array)
+                  headers_with_options.first
+                else
+                  headers_with_options
+                end
 
       # Dans la méthode #line on utilise le même mécanisme pour contenir les options dans la liste d'arguments.
       # C'est pour cette raison qu'on réintègre les options dans le header, et qu'on passe le tout en argument

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'test_helper'
 
 class SpreadsheetToArrayTest < ActiveSupport::TestCase
@@ -15,9 +16,16 @@ class SpreadsheetToArrayTest < ActiveSupport::TestCase
       
       excel_sec_line_values   = array[3]
       
-      # Les comparaisons sont faites en string pour éviter les problèmes de précision des flottants
-      assert_equal            first_line_values.map(&:to_s) , excel_first_line_values.map(&:to_s)
-      assert_equal            second_line_values.map(&:to_s),   excel_sec_line_values.map(&:to_s)
+      assert_equal  first_line_values[0] , excel_first_line_values[0]
+      assert_equal  second_line_values[1], excel_sec_line_values[1]
+
+      # assert_in_delta used because there is a problem with float precision when reading from xls files
+      (1..first_line_values.size-1).each do |n|
+        assert_in_delta  first_line_values[n] , excel_first_line_values[n], 0.0001
+      end
+      (1..second_line_values.size-1).each do |n|
+        assert_in_delta  second_line_values[n], excel_sec_line_values[n]  , 0.0001
+      end
     end
   end
   
