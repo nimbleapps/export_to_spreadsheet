@@ -303,14 +303,14 @@ class GoogleSpreadsheetsTest < ActiveSupport::TestCase
 
   # When a lines contains a title, it should be written on the first cell
   def expected_title(title)
-    title.each_line.to_a
+    [title]
   end
 
 
   # When a lines contains a subtitle title_3), it should be written on the default cell
   def expected_subtitle(title)
     # Returns an Array with nil cells merged with an Array containing the title
-    array_with_nil_cells + title.each_line.to_a
+    array_with_nil_cells + [title]
   end
 
   # When a lines contains a text, it should be written from the second cell
