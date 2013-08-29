@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'export_to_spreadsheet'
-  s.version     = '0.2.0'
+  s.version     = '0.3.0'
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Export data to Google or Excel"
   s.description = "Export model data to Google Spreadsheets or Excel through Apache POI"
