@@ -5,9 +5,9 @@ This plugin allows to add some export functionalities to a Rails Application. Th
 == Dependencies
 
 This gem has been tested on the following versions of ruby and rails
-v0.1.2 - ruby 1.8.7 and rails 2.3.8
-v0.2.0 - ruby 1.8.7 and rails 3.0.20/3.1.12
-v0.3.0 - ruby 1.9.3 and rails 3.1.12 (tests are passing with rails 4.0.0)
+- v0.1.2 - ruby 1.8.7 and rails 2.3.8
+- v0.2.0 - ruby 1.8.7 and rails 3.0.20/3.1.12
+- v0.3.0 - ruby 1.9.3 and rails 3.1.12 (tests are passing with rails 4.0.0)
 
 It requires both JAVA (JDK and JRE) and the following gems :
 - portablecontacts
