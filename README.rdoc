@@ -59,6 +59,8 @@ A full sample that uses the plugin is available here: https://github.com/nimblea
 
 The tutorial below allows you to re-build this sample step by step.
 
+Note that the sample above and the tutorial below work with Rails 2.x. They haven't been adapted to Rails 3 yet.
+
 == Simple Excel export
 
 Once the plugin is installed (see Installation section for that), you can do the following to get a valid Excel export in 10 steps :
