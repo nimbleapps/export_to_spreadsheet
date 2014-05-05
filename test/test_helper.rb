@@ -1,5 +1,6 @@
 require 'rubygems'
-require 'test/unit'
+gem "minitest"
+require "minitest/autorun"
 require 'active_record'
 require 'active_support/test_case'
 
