@@ -22,11 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rjb'
 
-  # Plug-in that handles Google API authentication
-  s.add_dependency 'oauth'
-
-  s.add_dependency 'oauth-plugin', ">=0.4.1"
-
   s.add_development_dependency 'yard'
   s.add_development_dependency 'highline'
   s.add_development_dependency 'sqlite3'

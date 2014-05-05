@@ -5,7 +5,6 @@ module SalesClicExporter::Document
   class GoogleSpreadsheets < Base
     
     require 'google_spreadsheet' # Plug-in that handles Google Spreadsheets API communication
-    require 'oauth'              # Plug-in that handles Google API authentication
 
     # Par défaut on commence à écrire sur la seconde colone.
     # A la différence de Excel, le premier index est 1 (au lieu de 0)
